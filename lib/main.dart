@@ -105,6 +105,7 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Integration Methods"),
+        elevation: 1,
       ),
       drawer: Drawer(
         child: Container(

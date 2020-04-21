@@ -6,6 +6,7 @@ class Help extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text("Integration Methods"),
+        elevation: 1,
       ),
       body: Container(
         padding: EdgeInsets.symmetric(vertical: 12, horizontal: 12),

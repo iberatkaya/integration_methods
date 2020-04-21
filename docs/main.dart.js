@@ -8033,11 +8033,13 @@ _.a=g
 _.b=h
 _.c=i},
 vH:function vH(){},
-Y2:function(a){return new E.oj(a,new P.S(1/0,56),null)},
+Y2:function(a,b){return new E.oj(b,a,new P.S(1/0,56),null)},
 W3:function W3(){},
-oj:function oj(a,b,c){this.e=a
-this.id=b
-this.a=c},
+oj:function oj(a,b,c,d){var _=this
+_.e=a
+_.y=b
+_.id=c
+_.a=d},
 tt:function tt(a){this.a=null
 this.b=a
 this.c=null},
@@ -27843,14 +27845,14 @@ if(a0===!0){L.iq(a2,C.by,u.Z).toString
 j=B.Yq(f,C.pi,g.gL5(),e)}else j=f
 if(j!=null)j=Y.LJ(j,r)
 a0=g.a.Kh(d)
-g.a.toString
+a1=g.a
+a1.toString
 a0=Y.LJ(L.ls(new E.zp(m,l,j,a0,16,f),f,f,C.bN,!0,n,f,f,C.aA),s)
 i=Q.a14(!1,new T.wU(new T.lq(C.ve,a0,f),f),C.ay,!0)
 h=d.d===C.R?C.Af:C.Ag
 a0=c.b
 if(a0==null)a0=d.c
-a1=c.c
-if(a1==null)a1=4
+a1=a1.y
 return T.bL(f,new X.oh(h,M.z_(C.a2,T.bL(f,new T.f7(C.tE,f,f,i,f),!1,f,f,!0,f,f,f,f,f,f,f,f,f,f,f,f,f,f,f,f),C.aw,a0,a1,f,f,f,C.c9),f,u.qC),!0,f,f,!1,f,f,f,f,f,f,f,f,f,f,f,f,f,f,f,f)}}
 E.CZ.prototype={
 ah:function(a){var t=new E.Fn(C.aB,T.ap(a),null)
@@ -46242,10 +46244,10 @@ case 2:return P.ac(null,s)}})
 return P.ad($async$og,s)}}
 V.yd.prototype={
 H:function(a){var t=null
-return M.YT(E.Y2(L.bj("Formulas",t,t,t,t,t)),E.a1a(M.bN(t,T.x2(H.c([new T.cS(C.wP,L.bj("Simpson's Method: ",t,t,t,C.km,t),t),U.ys(new L.fN("assets/simps.png")),new T.cS(C.lb,L.bj("Composite Simpson's Method: ",t,t,t,C.km,t),t),U.ys(new L.fN("assets/comps.png")),new T.cS(C.lb,L.bj("Midpoint Method: ",t,t,t,C.km,t),t),U.ys(new L.fN("assets/midpoint.png")),new T.cS(C.lb,L.bj("Trapezoid Method: ",t,t,t,C.km,t),t),U.ys(new L.fN("assets/trape.png"))],u.F),C.hL,C.bn,C.bo),t,t,t,t,t,t,new V.a3(2,12,2,12),t,t),t),t)}}
+return M.YT(E.Y2(1,L.bj("Formulas",t,t,t,t,t)),E.a1a(M.bN(t,T.x2(H.c([new T.cS(C.wP,L.bj("Simpson's Method: ",t,t,t,C.km,t),t),U.ys(new L.fN("assets/simps.png")),new T.cS(C.lb,L.bj("Composite Simpson's Method: ",t,t,t,C.km,t),t),U.ys(new L.fN("assets/comps.png")),new T.cS(C.lb,L.bj("Midpoint Method: ",t,t,t,C.km,t),t),U.ys(new L.fN("assets/midpoint.png")),new T.cS(C.lb,L.bj("Trapezoid Method: ",t,t,t,C.km,t),t),U.ys(new L.fN("assets/trape.png"))],u.F),C.hL,C.bn,C.bo),t,t,t,t,t,t,new V.a3(2,12,2,12),t,t),t),t)}}
 D.ym.prototype={
 H:function(a){var t=null
-return M.YT(E.Y2(L.bj("Integration Methods",t,t,t,t,t)),M.bN(t,T.x2(H.c([L.bj("Select a method you would like to calculate the integral with. Enter the integral. Supported operands: +, -, *, /, e, sin, cos, tan, ^. Any of these may be nested in each other. Select a single variable such as x or a. Enter the equation and enter the variable name. Select the starting and ending point a and b where the integral would be the equation from a to b. Enter the intervals if the input is required. The larger the interval, the more accurate the methods are. Select all to compare all methods which each other.",t,t,t,A.cJ(t,t,t,t,t,t,t,t,t,t,t,18,t,t,t,t,!0,t,t,t,t,t,t),t)],u.F),C.b3,C.bn,C.bo),t,t,t,t,t,t,new V.a3(12,12,12,12),t,t),t)}}
+return M.YT(E.Y2(1,L.bj("Integration Methods",t,t,t,t,t)),M.bN(t,T.x2(H.c([L.bj("Select a method you would like to calculate the integral with. Enter the integral. Supported operands: +, -, *, /, e, sin, cos, tan, ^. Any of these may be nested in each other. Select a single variable such as x or a. Enter the equation and enter the variable name. Select the starting and ending point a and b where the integral would be the equation from a to b. Enter the intervals if the input is required. The larger the interval, the more accurate the methods are. Select all to compare all methods which each other.",t,t,t,A.cJ(t,t,t,t,t,t,t,t,t,t,t,18,t,t,t,t,!0,t,t,t,t,t,t),t)],u.F),C.b3,C.bn,C.bo),t,t,t,t,t,t,new V.a3(12,12,12,12),t,t),t)}}
 F.zj.prototype={
 H:function(a){return new S.qa(new F.qn(null),"Integral Methods",X.a1k(null,C.yJ,X.a7M()),!1,null)}}
 F.qn.prototype={
@@ -46271,7 +46273,7 @@ t=t!=null?"C. Simpson's: "+C.f.iO(t,4):""
 return L.bj(t,o,o,o,A.cJ(o,o,o,o,o,o,o,o,o,o,o,24,o,o,o,o,!0,o,o,o,o,o,o),o)}else if(a===C.qc){t=p.ch!=null?"Trapezoidal: "+J.a_b(p.cy,4):""
 return L.bj(t,o,o,o,A.cJ(o,o,o,o,o,o,o,o,o,o,o,24,o,o,o,o,!0,o,o,o,o,o,o),o)}else if(a===C.qd){t=p.ch!=null?"Midpoint: "+J.a_b(p.db,4):""
 return L.bj(t,o,o,o,A.cJ(o,o,o,o,o,o,o,o,o,o,o,24,o,o,o,o,!0,o,o,o,o,o,o),o)}},
-H:function(a){var t,s,r,q,p=this,o=null,n="From a to b",m=E.Y2(L.bj("Integration Methods",o,o,o,o,o)),l=u.F,k=H.c([],l),j=U.ys(new L.fN("assets/icon.png"))
+H:function(a){var t,s,r,q,p=this,o=null,n="From a to b",m=E.Y2(1,L.bj("Integration Methods",o,o,o,o,o)),l=u.F,k=H.c([],l),j=U.ys(new L.fN("assets/icon.png"))
 k.push(new T.xD(S.fP(o,o,o,C.m,o,o,C.a3),j,o))
 k.push(Q.a0j(new F.Um(a),T.P5(H.c([L.Yp(C.x5,P.Y6(120,120,120,1)),new T.cS(new V.a3(16,0,0,0),L.bj("Formulas",o,o,o,A.cJ(o,o,o,o,o,o,o,o,o,o,o,16,o,o,o,o,!0,o,o,o,o,o,o),o),o)],l),C.b3,C.bn,C.bo)))
 k.push(Q.a0j(new F.Un(a),T.P5(H.c([L.Yp(C.xb,P.Y6(120,120,120,1)),new T.cS(new V.a3(16,0,0,0),L.bj("Help",o,o,o,A.cJ(o,o,o,o,o,o,o,o,o,o,o,16,o,o,o,o,!0,o,o,o,o,o,o),o),o)],l),C.b3,C.bn,C.bo)))

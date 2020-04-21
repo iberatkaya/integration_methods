@@ -10,6 +10,7 @@ class Formulas extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text("Formulas"),
+        elevation: 1,
       ),
       body: SingleChildScrollView(
         child: Container(
