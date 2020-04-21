@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import './methods/simpsons_method.dart';
+import './methods/trapezoidal_method.dart';
+import './methods/methods.dart';
+import './methods/midpoint_method.dart';
+import './formulas.dart';
 
 void main() {
   runApp(MyApp());
@@ -51,29 +55,43 @@ class _MyHomePageState extends State<MyHomePage> {
   final intcontroller = TextEditingController();
   double valueSimp;
   double valueCompSimp;
-  String mode = "All";
+  double valueTrapezoial;
+  double valueMidpoint;
+  Method mode = Method.All;
   final _formKey = GlobalKey<FormState>();
 
-  Widget methodType(String mode){
+  Widget methodType(Method mode){
     double fontSize = 24;
-    if(mode == "All"){
+    if(mode == Method.All){
       return (
         Column(
           children: <Widget>[
             Text((valueSimp != null) ? "Simpson's: " + (valueSimp.toStringAsPrecision(4)) : "", style: TextStyle(fontSize: fontSize),),
-            Text((valueCompSimp != null) ? "C. Simpson's: " + valueCompSimp.toStringAsPrecision(4) : "", style: TextStyle(fontSize: fontSize),)
+            Text((valueCompSimp != null) ? "C. Simpson's: " + valueCompSimp.toStringAsPrecision(4) : "", style: TextStyle(fontSize: fontSize),),
+            Text((valueTrapezoial != null) ? "Trapezoidal: " + valueTrapezoial.toStringAsPrecision(4) : "", style: TextStyle(fontSize: fontSize),),
+            Text((valueMidpoint != null) ? "Midpoint: " + valueMidpoint.toStringAsPrecision(4) : "", style: TextStyle(fontSize: fontSize),)
           ],
         )
       );
     }
-    else if(mode == "Simpson's Method"){
+    else if(mode == Method.Simpsons){
       return (
             Text((valueSimp != null) ? "Simpson's: " + (valueSimp.toStringAsPrecision(4)) : "", style: TextStyle(fontSize: fontSize),)
       );
     }
-    else if(mode == "Composite Simpson's Method"){
+    else if(mode == Method.CompositeSimpsons){
       return (
             Text((valueSimp != null) ? "C. Simpson's: " + (valueSimp.toStringAsPrecision(4)) : "", style: TextStyle(fontSize: fontSize),)
+      );
+    }
+    else if(mode == Method.Trapezoidal){
+      return (
+            Text((valueSimp != null) ? "Trapezoidal: " + (valueTrapezoial.toStringAsPrecision(4)) : "", style: TextStyle(fontSize: fontSize),)
+      );
+    }
+    else if(mode == Method.Midpoint){
+      return (
+            Text((valueSimp != null) ? "Midpoint: " + (valueMidpoint.toStringAsPrecision(4)) : "", style: TextStyle(fontSize: fontSize),)
       );
     }
   }
@@ -83,6 +101,42 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Integration Methods"),
+      ),
+      drawer: Drawer(
+        child: Container(
+          child:ListView(
+            padding: EdgeInsets.zero,
+            children: <Widget>[
+              DrawerHeader(
+                child: Align(
+                  child: Text('Integration Methods', textAlign: TextAlign.center, style: TextStyle(color: Colors.white, fontSize: 24),),
+                  alignment: Alignment.center
+                  ,
+                ), 
+                decoration: BoxDecoration(
+                  color: Colors.greenAccent,
+                ),
+              ),
+              ListTile(
+                title: Row(
+                  children: <Widget>[
+                    Icon(Icons.functions, color: Color.fromRGBO(120, 120, 120, 1),),
+                    Padding(
+                      padding: EdgeInsets.only(left: 16),
+                      child: Text('Formulas', style: TextStyle(fontSize: 16),)
+                    )
+                  ],
+                ),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => Formulas()),
+                  );
+                },
+              ),
+            ],
+          ),
+        ),
       ),
       body: SingleChildScrollView(
         physics: AlwaysScrollableScrollPhysics(),
@@ -106,15 +160,19 @@ class _MyHomePageState extends State<MyHomePage> {
                     DropdownButton(
                       value: mode,                      
                       items: [
-                        DropdownMenuItem(child: Text("All"), value: "All"),
-                        DropdownMenuItem(child: Text("Simpson's Method"), value: "Simpson's Method"),
-                        DropdownMenuItem(child: Text("Composite Simpson's Method"), value: "Composite Simpson's Method")
+                        DropdownMenuItem(child: Text("All"), value: Method.All),
+                        DropdownMenuItem(child: Text("Simpson's Method"), value: Method.Simpsons),
+                        DropdownMenuItem(child: Text("Composite Simpson's Method"), value: Method.CompositeSimpsons),
+                        DropdownMenuItem(child: Text("Trapezoidal Method"), value: Method.Trapezoidal),
+                        DropdownMenuItem(child: Text("Midpoint Method"), value: Method.Midpoint)
                       ],
                       onChanged: (val){
                         setState(() {
                           mode = val; 
                           valueSimp = null;
                           valueCompSimp = null;
+                          valueTrapezoial = null;
+                          valueMidpoint = null;
                         });
                       },
                     ),
@@ -196,7 +254,7 @@ class _MyHomePageState extends State<MyHomePage> {
                             ),
                           )
                         ),
-                        if(mode != "Simpson's Method")
+                        if(mode != Method.Simpsons)
                           Flexible(
                             child: Container(
                               padding: EdgeInsets.fromLTRB(0, 12, 12, 12),
@@ -232,12 +290,17 @@ class _MyHomePageState extends State<MyHomePage> {
                           String eq = eqcontroller.text;
                           double a = double.parse(acontroller.text);
                           double b = double.parse(bcontroller.text);
+                          int interval = int.parse(intcontroller.text);
                           String variable = varcontroller.text;
                           double simp = simpsonsMethod(eq, variable: variable, a: a, b: b);
-                          double compSimp = compositeSimpsonsMethod(eq, variable: variable, a: a, b: b, interval: 3);
+                          double compSimp = compositeSimpsonsMethod(eq, variable: variable, a: a, b: b, interval: interval);
+                          double trapezodial = trapezoidalMethod(eq, variable: variable, a: a, b: b, interval: interval);
+                          double midpoint = midpointMethod(eq, variable: variable, a: a, b: b, interval: interval);
                           setState(() {
                             valueSimp = simp;                            
-                            valueCompSimp = compSimp;                            
+                            valueCompSimp = compSimp;    
+                            valueTrapezoial = trapezodial;                        
+                            valueMidpoint = midpoint;                        
                           });
                         } catch(e){
                           Fluttertoast.showToast(msg: e.toString(), toastLength: Toast.LENGTH_LONG);
@@ -248,7 +311,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       child: Text("Calculate", style: TextStyle(color: Colors.black87),),
                     ),
                     Padding(padding: EdgeInsets.only(bottom: MediaQuery.of(context).size.height * 0.02)),
-                    if(valueSimp != null || valueCompSimp != null)
+                    if(valueSimp != null || valueCompSimp != null || valueTrapezoial != null)
                       Container(
                         decoration: BoxDecoration(color: Color.fromRGBO(235, 235, 235, 1)),
                         padding: EdgeInsets.symmetric(vertical: 4, horizontal: 12),
