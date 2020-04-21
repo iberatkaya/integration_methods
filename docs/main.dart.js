@@ -6451,21 +6451,21 @@ this.b=b
 this.a=c},
 EF:function EF(){},
 G_:function G_(){},
-aaO:function(a,b,c,d,e){var t,s,r,q,p,o,n,m,l,k,j,i,h={}
+aaO:function(a,b,c,d,e){var t,s,r,q,p,o,n,m,l,k,j,i,h,g={}
 try{t=new X.mi(X.My())
 s=J.HI(t,a)
 r=new X.ln(null,P.x(u.N,u.t_),P.eC(u.ps))
 q=new X.dJ(e,null)
 p=H.c([],u.n)
 o=(c-b)/d
-for(n=1;n<d;++n){k=n
-j=n
-r.b.l(0,q.b,new X.bF((b+k*o+b+(j-1)*o)/2))
+for(n=1,k=d+1;n<k;++n){j=n
+i=n
+r.b.l(0,q.b,new X.bF((b+j*o+b+(i-1)*o)/2))
 m=J.dQ(s,C.A,r)
-J.f6(p,m)}h.a=0
-J.fL(p,new X.XB(h))
-k=h.a
-return k*o}catch(i){l=H.N(i)
+J.f6(p,m)}g.a=0
+J.fL(p,new X.XB(g))
+k=g.a
+return k*o}catch(h){l=H.N(h)
 throw H.d(l)}},
 XB:function XB(a){this.a=a},
 aaZ:function(a,b,c,d){var t,s,r,q,p,o,n,m,l,k,j
@@ -7186,12 +7186,11 @@ e9:function e9(a,b){this.a=a
 this.b=b},
 Ee:function Ee(){},
 R1:function R1(a){this.b=a},
-qa:function qa(a,b,c,d,e){var _=this
+qa:function qa(a,b,c,d){var _=this
 _.d=a
 _.ch=b
 _.cy=c
-_.r1=d
-_.a=e},
+_.a=d},
 U0:function U0(){},
 up:function up(a){var _=this
 _.a=_.e=_.d=null
@@ -27782,7 +27781,7 @@ q=q.c
 if(q==null)q=C.q7
 t=s.gyW()
 s.a.toString
-return new K.mC(new S.U0(),new S.tq(r,r,r,new S.TV(),o,C.yv,r,r,p,new S.TW(s),n,r,C.BZ,q,r,t,r,r,C.ps,!1,!1,!1,!1,new S.TX(),!1,r,r,new N.id(s,u.By)),r)}}
+return new K.mC(new S.U0(),new S.tq(r,r,r,new S.TV(),o,C.yv,r,r,p,new S.TW(s),n,r,C.BZ,q,r,t,r,r,C.ps,!1,!1,!1,!1,new S.TX(),!0,r,r,new N.id(s,u.By)),r)}}
 S.TV.prototype={
 $1$2:function(a,b,c){return V.YF(b,a,c)},
 $2:function(a,b){return this.$1$2(a,b,u.z)},
@@ -46249,7 +46248,7 @@ D.ym.prototype={
 H:function(a){var t=null
 return M.YT(E.Y2(1,L.bj("Integration Methods",t,t,t,t,t)),M.bN(t,T.x2(H.c([L.bj("Select a method you would like to calculate the integral with. Enter the integral. Supported operands: +, -, *, /, e, sin, cos, tan, ^. Any of these may be nested in each other. Select a single variable such as x or a. Enter the equation and enter the variable name. Select the starting and ending point a and b where the integral would be the equation from a to b. Enter the intervals if the input is required. The larger the interval, the more accurate the methods are. Select all to compare all methods which each other.",t,t,t,A.cJ(t,t,t,t,t,t,t,t,t,t,t,18,t,t,t,t,!0,t,t,t,t,t,t),t)],u.F),C.b3,C.bn,C.bo),t,t,t,t,t,t,new V.a3(12,12,12,12),t,t),t)}}
 F.zj.prototype={
-H:function(a){return new S.qa(new F.qn(null),"Integral Methods",X.a1k(null,C.yJ,X.a7M()),!1,null)}}
+H:function(a){return new S.qa(new F.qn(null),"Integration Methods",X.a1k(null,C.yJ,X.a7M()),null)}}
 F.qn.prototype={
 at:function(){var t=null,s=O.lG(!0,t,t,!1),r=O.lG(!0,t,t,!1),q=O.lG(!0,t,t,!1),p=u.u,o=H.c([],p),n=u.A,m=H.c([],p),l=H.c([],p),k=H.c([],p)
 return new F.ES(s,r,q,new D.fC(C.cl,new R.a6(o,n)),new D.fC(C.cl,new R.a6(m,n)),new D.fC(C.cl,new R.a6(l,n)),new D.fC(C.cl,new R.a6(k,n)),new D.fC(C.cl,new R.a6(H.c([],p),n)),C.mn,new N.b3(t,u.jH),C.p)}}
