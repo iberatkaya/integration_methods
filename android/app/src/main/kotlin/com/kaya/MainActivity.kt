@@ -1,4 +1,4 @@
-package com.example.integration_methods
+package com.kaya.integrationmethods
 
 import io.flutter.embedding.android.FlutterActivity
 
