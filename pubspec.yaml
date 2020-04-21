@@ -24,7 +24,7 @@ dependencies:
   flutter:
     sdk: flutter
   math_expressions: ^2.0.0
-
+  fluttertoast: ^4.0.1
 
 
   # The following adds the Cupertino Icons font to your application.

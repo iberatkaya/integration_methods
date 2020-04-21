@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import './methods/simpsons_method.dart';
 
 void main() {
@@ -9,7 +10,6 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    print(simpsons_method("a*sin(cos(a))", variable: "a", a: 0, b: 2));
 
     return MaterialApp(
       title: 'Flutter Demo',
@@ -40,12 +40,43 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  final numFocusa = new FocusNode();
+  final numFocusb = new FocusNode();
+  final numFocusint = new FocusNode();
 
   final eqcontroller = TextEditingController();
   final acontroller = TextEditingController();
   final bcontroller = TextEditingController();
   final varcontroller = TextEditingController();
-  double value;
+  final intcontroller = TextEditingController();
+  double valueSimp;
+  double valueCompSimp;
+  String mode = "All";
+  final _formKey = GlobalKey<FormState>();
+
+  Widget methodType(String mode){
+    double fontSize = 24;
+    if(mode == "All"){
+      return (
+        Column(
+          children: <Widget>[
+            Text((valueSimp != null) ? "Simpson's: " + (valueSimp.toStringAsPrecision(4)) : "", style: TextStyle(fontSize: fontSize),),
+            Text((valueCompSimp != null) ? "C. Simpson's: " + valueCompSimp.toStringAsPrecision(4) : "", style: TextStyle(fontSize: fontSize),)
+          ],
+        )
+      );
+    }
+    else if(mode == "Simpson's Method"){
+      return (
+            Text((valueSimp != null) ? "Simpson's: " + (valueSimp.toStringAsPrecision(4)) : "", style: TextStyle(fontSize: fontSize),)
+      );
+    }
+    else if(mode == "Composite Simpson's Method"){
+      return (
+            Text((valueSimp != null) ? "C. Simpson's: " + (valueSimp.toStringAsPrecision(4)) : "", style: TextStyle(fontSize: fontSize),)
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -53,28 +84,47 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: Text("Integration Methods"),
       ),
-      body: Center(
+      body: SingleChildScrollView(
+        physics: AlwaysScrollableScrollPhysics(),
         child: Container(
-          padding: EdgeInsets.fromLTRB(12, 12, 12, 4),
+          padding: EdgeInsets.fromLTRB(16, 12, 16, 4),
           child: Column(
             children: <Widget>[
-              Expanded(
-                flex: 1,
-                child: Container(
-                  padding: EdgeInsets.fromLTRB(0, 24, 0, 0),
-                  child: Text(
-                      'Welcome to Integration Methods!',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(fontSize: 24, ),
-                    ),
+              Container(
+                padding: EdgeInsets.fromLTRB(0, 24, 0, 0),
+                child: Text(
+                    'Welcome to Integration Methods!',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(fontSize: 24, ),
                   ),
               ),
-              Expanded(
-                flex: 2,
+              Padding(padding: EdgeInsets.only(bottom: MediaQuery.of(context).size.height * 0.1)),
+              Form(
+                key: _formKey,
                 child: Column(
                   children: <Widget>[
-                    TextField(
+                    DropdownButton(
+                      value: mode,                      
+                      items: [
+                        DropdownMenuItem(child: Text("All"), value: "All"),
+                        DropdownMenuItem(child: Text("Simpson's Method"), value: "Simpson's Method"),
+                        DropdownMenuItem(child: Text("Composite Simpson's Method"), value: "Composite Simpson's Method")
+                      ],
+                      onChanged: (val){
+                        setState(() {
+                          mode = val; 
+                          valueSimp = null;
+                          valueCompSimp = null;
+                        });
+                      },
+                    ),
+                    TextFormField(
                       controller: eqcontroller,
+                      validator: (val) {
+                        if(val.isEmpty)
+                          return "Cannot be empty!";
+                        return null;
+                      },
                       decoration: InputDecoration(
                         labelText: "Equation",
                         hintText: "Ex: x^2 + 5 * sin(x)"
@@ -85,8 +135,15 @@ class _MyHomePageState extends State<MyHomePage> {
                         Flexible(
                           child: Container(
                             padding: EdgeInsets.fromLTRB(0, 12, 12, 12),
-                            child: TextField(
+                            child: TextFormField(
                               controller: varcontroller,
+                              validator: (val) {
+                                if(val.isEmpty)
+                                  return "Cannot be empty!";
+                                if(!eqcontroller.text.contains(val))
+                                  return "Variable does not exist in equation!";
+                                return null;
+                              },
                               decoration: InputDecoration(
                                 labelText: "Variable",
                                 hintText: "Ex. x"
@@ -97,8 +154,19 @@ class _MyHomePageState extends State<MyHomePage> {
                         Flexible(
                           child: Container(
                             padding: EdgeInsets.fromLTRB(0, 12, 12, 12),
-                            child: TextField(
+                            child: TextFormField(
                               controller: acontroller,
+                              keyboardType: TextInputType.number,
+                              textInputAction: TextInputAction.done,
+                              focusNode: numFocusa,
+                              validator: (val) {
+                                try {
+                                  double.parse(val);
+                                } catch(e) {
+                                  return "Not a number!";
+                                }
+                                return null;
+                              },
                               decoration: InputDecoration(
                                 labelText: "Start (a)",
                                 hintText: "From a to b"
@@ -109,8 +177,18 @@ class _MyHomePageState extends State<MyHomePage> {
                         Flexible(
                           child: Container(
                             padding: EdgeInsets.fromLTRB(0, 12, 12, 12),
-                            child: TextField(
+                            child: TextFormField(
                               controller: bcontroller,
+                              focusNode: numFocusb,
+                              keyboardType: TextInputType.number,
+                              validator: (val) {
+                                try {
+                                  double.parse(val);
+                                } catch(e) {
+                                  return "Not a number!";
+                                }
+                                return null;
+                              },
                               decoration: InputDecoration(
                                 labelText: "End (b)",
                                 hintText: "From a to b"
@@ -118,32 +196,66 @@ class _MyHomePageState extends State<MyHomePage> {
                             ),
                           )
                         ),
+                        if(mode != "Simpson's Method")
+                          Flexible(
+                            child: Container(
+                              padding: EdgeInsets.fromLTRB(0, 12, 12, 12),
+                              child: TextFormField(
+                                controller: intcontroller,
+                                focusNode: numFocusint,
+                                keyboardType: TextInputType.number,
+                                validator: (val) {
+                                  try {
+                                    double.parse(val);
+                                  } catch(e) {
+                                    return "Not a number!";
+                                  }
+                                  return null;
+                                },
+                                decoration: InputDecoration(
+                                  labelText: "Interval",
+                                  hintText: "Ex. 8"
+                                ),
+                              ),
+                            )
+                          ),
                       ],
                     ),
                     FlatButton(
                       onPressed: () {
                         try{
-                          if(eqcontroller.text == "")
+                          numFocusa.unfocus();
+                          numFocusb.unfocus();
+                          numFocusint.unfocus();
+                          if(!_formKey.currentState.validate())
                             return;
-                          double a = double.tryParse(acontroller.text);
-                          double b = double.tryParse(bcontroller.text);
+                          String eq = eqcontroller.text;
+                          double a = double.parse(acontroller.text);
+                          double b = double.parse(bcontroller.text);
                           String variable = varcontroller.text;
-                          if(eqcontroller.text.contains(variable))
+                          double simp = simpsonsMethod(eq, variable: variable, a: a, b: b);
+                          double compSimp = compositeSimpsonsMethod(eq, variable: variable, a: a, b: b, interval: 3);
                           setState(() {
-                            value = (simpsons_method(eqcontroller.text, variable: variable, a: a, b: b));
-                            
+                            valueSimp = simp;                            
+                            valueCompSimp = compSimp;                            
                           });
                         } catch(e){
+                          Fluttertoast.showToast(msg: e.toString(), toastLength: Toast.LENGTH_LONG);
                           print(e);
                         }
                       },
                       color: Colors.greenAccent,
                       child: Text("Calculate", style: TextStyle(color: Colors.black87),),
                     ),
-                      Text((value != null) ? value.toString() : "", style: TextStyle(fontSize: 28),)
-                    
+                    Padding(padding: EdgeInsets.only(bottom: MediaQuery.of(context).size.height * 0.02)),
+                    if(valueSimp != null || valueCompSimp != null)
+                      Container(
+                        decoration: BoxDecoration(color: Color.fromRGBO(235, 235, 235, 1)),
+                        padding: EdgeInsets.symmetric(vertical: 4, horizontal: 12),
+                        child: methodType(mode)
+                      )
                   ]
-                )
+                ),
               )
             ],
           ),
