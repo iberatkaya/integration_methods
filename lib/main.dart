@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:url_launcher/url_launcher.dart';
 import './methods/simpsons_method.dart';
 import './methods/trapezoidal_method.dart';
 import './methods/methods.dart';
 import './methods/midpoint_method.dart';
 import './formulas.dart';
+import './help.dart';
 
 void main() {
   runApp(MyApp());
@@ -16,7 +19,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Integral Methods',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: Colors.green,
         visualDensity: VisualDensity.adaptivePlatformDensity,
@@ -108,13 +112,9 @@ class _MyHomePageState extends State<MyHomePage> {
             padding: EdgeInsets.zero,
             children: <Widget>[
               DrawerHeader(
-                child: Align(
-                  child: Text('Integration Methods', textAlign: TextAlign.center, style: TextStyle(color: Colors.white, fontSize: 24),),
-                  alignment: Alignment.center
-                  ,
-                ), 
+                child: Image(image: AssetImage("assets/icon.png")),
                 decoration: BoxDecoration(
-                  color: Colors.greenAccent,
+                  color: Colors.white,
                 ),
               ),
               ListTile(
@@ -128,12 +128,53 @@ class _MyHomePageState extends State<MyHomePage> {
                   ],
                 ),
                 onTap: () {
+                  Navigator.pop(context);
                   Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) => Formulas()),
                   );
                 },
               ),
+              ListTile(
+                title: Row(
+                  children: <Widget>[
+                    Icon(Icons.help_outline, color: Color.fromRGBO(120, 120, 120, 1),),
+                    Padding(
+                      padding: EdgeInsets.only(left: 16),
+                      child: Text('Help', style: TextStyle(fontSize: 16),)
+                    )
+                  ],
+                ),
+                onTap: () {
+                  Navigator.pop(context);
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => Help()),
+                  );
+                },
+              ),
+              if(!kIsWeb)
+                ListTile(
+                  title: Row(
+                    children: <Widget>[
+                      Icon(Icons.language, color: Color.fromRGBO(120, 120, 120, 1),),
+                      Padding(
+                        padding: EdgeInsets.only(left: 16),
+                        child: Text('Website', style: TextStyle(fontSize: 16),)
+                      )
+                    ],
+                  ),
+                  onTap: () async {
+                    Navigator.pop(context);
+                      const url = 'https://iberatkaya.github.io/integration_methods/#/';
+                      if (await canLaunch(url)) {
+                        await launch(url);
+                      } else {
+                        throw 'Could not launch $url';
+                      }
+                  },
+                ),
+
             ],
           ),
         ),
