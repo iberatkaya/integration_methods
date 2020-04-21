@@ -10,10 +10,10 @@ double midpointMethod(String expression, {String variable, double a, double b, i
 
     List<double> terms = [];
     double delta = (b-a) / interval;
-    for(int i=1; i<interval; i++) {
-        cm.bindVariable(myvar, Number((a + i * delta + a + (i-1) * delta) / 2));  
-        double term = exp.evaluate(EvaluationType.REAL, cm);
-        terms.add(term);
+    for(int i=1; i<interval+1; i++) {
+      cm.bindVariable(myvar, Number((a + i * delta + a + (i-1) * delta) / 2));  
+      double term = exp.evaluate(EvaluationType.REAL, cm);
+      terms.add(term);
     }
     double total = 0;
     terms.forEach((element) => (total += element));
