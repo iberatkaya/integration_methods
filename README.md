@@ -1,6 +1,6 @@
 <h1 align="center">Welcome to Integration Methods 👋</h1>
 
-> Integration Methods is a Flutter app that calculates integrals using the Trapezoid Rule, Midpoint Rule, and Simpson's Rule. Checkout the [Web App](https://iberatkaya.github.io/integration_methods/#/).
+> Integration Methods is a Flutter app that calculates integrals using the Trapezoid Rule, Midpoint Rule, and Simpson's Rule. Checkout the [Web App](https://iberatkaya.github.io/integration_methods/#/), [iOS App](https://apps.apple.com/us/app/integration-methods/id1509326169), and [Android App](https://play.google.com/store/apps/details?id=com.kaya.integrationmethods).
 
 ## Author
 
